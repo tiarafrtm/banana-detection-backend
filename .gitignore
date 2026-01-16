@@ -31,9 +31,12 @@ Thumbs.db
 uploads/*
 !uploads/.gitkeep
 
-# Trained Models
-trained_models/*.pt
-trained_models/*.onnx
+# Trained Models & Weights (SANGAT BESAR - jangan commit!)
+trained_models/
+yolov5nu.pt
+*.pt
+*.onnx
+*.pth
 !trained_models/.gitkeep
 
 # YOLOv5 Clone
