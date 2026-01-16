@@ -33,6 +33,15 @@ class YOLOv5Detector:
             
             print(f"🔄 Loading YOLOv5 model from: {model_path}")
             
+            # Check if model exists
+            import os
+            if not os.path.exists(model_path):
+                print(f"⚠️  Model file not found at: {model_path}")
+                print(f"ℹ️  For production deployment, download model separately")
+                print(f"ℹ️  Model loading will be deferred until first request")
+                self._model = None
+                return
+            
             # Use Ultralytics YOLO instead of torch.hub
             from ultralytics import YOLO
             
@@ -52,7 +61,8 @@ class YOLOv5Detector:
             
         except Exception as e:
             print(f"❌ Error loading model: {str(e)}")
-            raise
+            # Don't re-raise - allow app to start even if model loading fails
+            self._model = None
     
     def detect(self, image, img_size=640):
         """

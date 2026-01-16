@@ -26,12 +26,20 @@ def create_app(config_class=Config):
     })
     
     # Create necessary folders
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    os.makedirs(app.config['MODEL_FOLDER'], exist_ok=True)
+    try:
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        os.makedirs(app.config['MODEL_FOLDER'], exist_ok=True)
+        print(f"✅ Folders created: {app.config['UPLOAD_FOLDER']}, {app.config['MODEL_FOLDER']}")
+    except Exception as e:
+        print(f"⚠️  Warning creating folders: {str(e)}")
     
     # Register blueprints/routes
-    from app.routes import api_bp
-    app.register_blueprint(api_bp, url_prefix='/api')
+    try:
+        from app.routes import api_bp
+        app.register_blueprint(api_bp, url_prefix='/api')
+        print("✅ API blueprints registered")
+    except Exception as e:
+        print(f"⚠️  Warning registering blueprints: {str(e)}")
     
     # Health check endpoint
     @app.route('/')
