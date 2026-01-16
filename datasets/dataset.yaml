@@ -1,0 +1,13 @@
+# Banana Detection Dataset Configuration
+# Path relative to YOLOv5 directory
+
+path: ../datasets
+train: images/train
+val: images/val
+test: images/test
+
+# Number of classes
+nc: 3
+
+# Class names
+names: ['Mentah', 'Matang', 'Busuk']
